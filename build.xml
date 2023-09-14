@@ -1,0 +1,25 @@
+<!-- build.xml -->
+   <project name="MyJavaWebApp" default="compile">
+       <property name="src.dir" value="src"/>
+       <property name="build.dir" value="build"/>
+       <property name="classes.dir" value="${build.dir}/classes"/>
+       <property name="war.dir" value="${build.dir}/war"/>
+       <property name="war.file" value="${war.dir}/MyJavaWebApp.war"/>
+
+       <target name="init">
+           <mkdir dir="${build.dir}"/>
+           <mkdir dir="${classes.dir}"/>
+           <mkdir dir="${war.dir}"/>
+       </target>
+
+       <target name="compile" depends="init">
+           <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+       </target>
+
+       <target name="package" depends="compile">
+           <war destfile="${war.file}" webxml="${src.dir}/WEB-INF/web.xml">
+               <fileset dir="${classes.dir}" includes="**/*.class"/>
+               <lib dir="lib"/>
+           </war>
+       </target>
+   </project>
